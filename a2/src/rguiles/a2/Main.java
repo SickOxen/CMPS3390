@@ -18,7 +18,7 @@ public class Main
         Scanner scan = new Scanner(System.in);
 
         System.out.println("[Problem syntax is 'value operator value' (2 + 2)]");
-        System.out.println("Enter Math Problem or Quit: ");
+        System.out.print("Enter Math Problem or Quit: ");
 
         // Loop until user types quit
         String line;

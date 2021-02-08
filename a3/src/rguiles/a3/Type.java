@@ -1,5 +1,8 @@
 package rguiles.a3;
 
+/**
+ * Type of Shape
+ */
 public enum Type
 {
     SHAPE,

@@ -2,19 +2,30 @@ package rguiles.a3;
 import java.util.Random;
 import java.util.Scanner;
 
-public class Main
-{
-    public static void main(String[] args) throws Exception
-    {
+/**
+ * Main Driver Class for a3
+ *
+ * @author Richard Guiles
+ * @version 1.2
+ */
+public class Main {
+    /**
+     * Main Entry point of Application. Creates an array of random shapes
+     * with random constructor values and prints them to the screen.
+     *
+     * @param args String array holding arguments passed from cmdline
+     * @throws Exception Checks for inconsistent variables
+     */
+    public static void main(String[] args) throws Exception {
         Scanner scan = new Scanner(System.in);
         System.out.print("Num of Shapes to Display: ");
         int count = scan.nextInt();
         Random rand = new Random();
         Shape[] shapes = new Shape[count];
 
-        for(int loop = 0; loop < count; loop++){
+        for (int loop = 0; loop < count; loop++) {
             int next = rand.nextInt(5);
-            switch (next){
+            switch (next) {
                 case 0:
                     float f = rand.nextInt(20);
                     shapes[loop] = new Circle(f);

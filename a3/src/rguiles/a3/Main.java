@@ -27,27 +27,19 @@ public class Main {
             int next = rand.nextInt(5);
             switch (next) {
                 case 0:
-                    float f = rand.nextInt(20);
-                    shapes[loop] = new Circle(f);
+                    shapes[loop] = new Circle(rand.nextFloat() * 20f);
                     break;
                 case 1:
-                    float f1 = rand.nextInt(20);
-                    float f2 = rand.nextInt(20);
-                    shapes[loop] = new Oval(f1, f2);
+                    shapes[loop] = new Oval(rand.nextFloat() * 20f, rand.nextFloat() * 20f);
                     break;
                 case 2:
-                    float f3 = rand.nextInt(20);
-                    shapes[loop] = new Square(f3);
+                    shapes[loop] = new Square(rand.nextFloat() * 20f);
                     break;
                 case 3:
-                    float f4 = rand.nextInt(20);
-                    float f5 = rand.nextInt(20);
-                    shapes[loop] = new Rectangle(f4, f5);
+                    shapes[loop] = new Rectangle(rand.nextFloat() * 20f, rand.nextFloat() * 20f);
                     break;
                 case 4:
-                    float f6 = rand.nextInt(20);
-                    float f7 = rand.nextInt(20);
-                    shapes[loop] = new Right_Triangle(f6, f7);
+                    shapes[loop] = new Right_Triangle(rand.nextFloat() * 20f, rand.nextFloat() * 20f);
                     break;
                 default:
                     throw new IllegalStateException("Unexpected value: " + next);

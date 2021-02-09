@@ -32,6 +32,15 @@ public class Shape {
     }
 
     /**
+     * Allows 'Assignment 4' use of getArea() function
+     *
+     * @return predetermined zero value
+     */
+    public double getArea() {
+        return 0.0d;
+    }
+
+    /**
      * Override the toString function to print custom table
      *
      * @return Formatted string that contains all properties of array shapes[]

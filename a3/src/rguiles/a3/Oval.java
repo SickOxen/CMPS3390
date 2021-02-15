@@ -5,6 +5,7 @@ package rguiles.a3;
  */
 public class Oval extends Circle {
     private float radius2;
+    private final Exception ovalExcept = new Exception("Both radii are equal, use Circle class");
 
     /**
      * Default Constructor [Sets Type to Oval and radius2 to zero]
@@ -21,8 +22,12 @@ public class Oval extends Circle {
      * @param radius  float representing first radius of an oval
      * @param radius2 float representing second radius of an oval
      */
-    public Oval(float radius, float radius2) {
+    public Oval(float radius, float radius2) throws Exception {
         super();
+
+        if (radius == radius2)
+            throw ovalExcept;
+
         this.setType(Type.OVAL);
         this.setRadius(radius);
         this.setRadius2(radius2);
@@ -42,7 +47,9 @@ public class Oval extends Circle {
      *
      * @param radius2 float value representing second radius of an oval
      */
-    public void setRadius2(float radius2) {
+    public void setRadius2(float radius2) throws Exception{
+        if (radius2 == this.getRadius())
+            throw ovalExcept;
         this.radius2 = radius2 >= 0 ? radius2 : 0;
     }
 

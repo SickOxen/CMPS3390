@@ -59,4 +59,3 @@ public class MergeSort extends Thread
         System.out.println("Merge Thread Complete");
     }
 }
-

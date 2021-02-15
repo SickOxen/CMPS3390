@@ -8,11 +8,11 @@ import java.util.Scanner;
  * @author Richard Guiles
  * @version 1.0
  */
-public class Main
-{
+public class Main {
     /**
      * Main Entry point of Application. Sorts an array of random shapes
      * generated from the previous assignment
+     *
      * @param args String array holding arguments passed from cmdline
      * @throws Exception Checks for inconsistent variables
      */
@@ -20,10 +20,10 @@ public class Main
         Scanner scan = new Scanner(System.in);
         Random rand = new Random();
 
-        System.out.print("Run [S]ingle, [D]ual, or [Q]uad Thread Sort: ");
+        System.out.print("Run [S]ingle, [D]ual, [Q]uad, or [C]ustom Thread Sort: ");
         char choice = scan.next().charAt(0);
-        while (choice != 's' && choice != 'S' && choice != 'd'
-                && choice != 'D' && choice != 'q' && choice != 'Q') {
+        while (choice != 's' && choice != 'S' && choice != 'd' && choice != 'D'
+                && choice != 'q' && choice != 'Q' && choice != 'c' && choice != 'C') {
             System.out.print("Incorrect Option. Enter [S] or [D] or [Q]: ");
             choice = scan.next().charAt(0);
         }
@@ -33,7 +33,7 @@ public class Main
         System.out.println();
         Shape[] shapes = new Shape[count];
 
-        for (int loop = 0; loop < count; loop++){
+        for (int loop = 0; loop < count; loop++) {
             int next = rand.nextInt(5);
             switch (next) {
                 case 0:
@@ -56,7 +56,7 @@ public class Main
             }
         }
 
-        switch (choice){
+        switch (choice) {
             case 's':
             case 'S':
                 singleSort(shapes);
@@ -68,12 +68,17 @@ public class Main
             case 'q':
             case 'Q':
                 quadSort(shapes);
+            case 'c':
+            case 'C':
+                // nSort(shapes);
+                System.out.println("Work in Progress | See end of Main");
                 break;
         }
     }
 
     /**
      * Sorts a randomly sized array of shape objects using a single thread
+     *
      * @param shapes An array of random shapes
      * @throws InterruptedException Inherited from a3 classes that check variable equivalence
      */
@@ -86,19 +91,20 @@ public class Main
         long duration = ((endTime - startTime) / 1000000);
 
         System.out.println("\n|-------------------------- SINGLE THREAD -----------------------------|");
-        for(Shape s : threadSort.getThreadShapes())
+        for (Shape s : threadSort.getThreadShapes())
             System.out.println(s);
         System.out.println("\nSingle Thread Sort Duration: " + duration);
     }
 
     /**
      * Sorts a randomly sized array of shape objects using two separate threads
+     *
      * @param shapes An array of random shapes
      * @throws InterruptedException Inherited from a3 classes that check variable equivalence
      */
     private static void dualSort(Shape[] shapes) throws InterruptedException {
         int mid = Math.round(shapes.length / 2);
-        ThreadSort t1 = new ThreadSort(shapes,0, mid);
+        ThreadSort t1 = new ThreadSort(shapes, 0, mid);
         ThreadSort t2 = new ThreadSort(shapes, mid, shapes.length);
 
         long startTime = System.nanoTime();
@@ -108,11 +114,11 @@ public class Main
         t2.join();
 
         System.out.println("\n|----------------------------- THREAD 01 ------------------------------|");
-        for(Shape s : t1.getThreadShapes())
+        for (Shape s : t1.getThreadShapes())
             System.out.println(s);
 
         System.out.println("\n|----------------------------- THREAD 02 ------------------------------|");
-        for(Shape s : t2.getThreadShapes())
+        for (Shape s : t2.getThreadShapes())
             System.out.println(s);
         System.out.println();
 
@@ -123,29 +129,30 @@ public class Main
         long duration = ((endTime - startTime) / 1000000);
 
         System.out.println("\n|---------------------------- DUAL THREADS ----------------------------|");
-        for(Shape s : merge.getSortedShapes())
+        for (Shape s : merge.getSortedShapes())
             System.out.println(s);
         System.out.println("\nMerge Thread Sort Duration: " + duration);
     }
 
     /**
      * Sorts an array of random shape objects using four separate threads
+     *
      * @param shapes An array of random shapes
      * @throws InterruptedException Inherited from a3 Classes that check variable equivalence
      */
     private static void quadSort(Shape[] shapes) throws InterruptedException {
-        int count = shapes.length / 4;
-        int remainingCount = shapes.length - (count * 3);
+        int length = shapes.length / 4;
+        int remainingLength = shapes.length - (length * 3);
 
         ThreadSort[] sortThreads = new ThreadSort[4];
 
         long startTime = System.nanoTime();
         for (int loop = 0; loop < 3; loop++) {
-            sortThreads[loop] = new ThreadSort(shapes, loop * count,
-                    loop * count + count);
+            sortThreads[loop] = new ThreadSort(shapes, loop * length,
+                    loop * length + length);
             sortThreads[loop].start();
         }
-        sortThreads[3] = new ThreadSort(shapes, shapes.length - remainingCount, shapes.length);
+        sortThreads[3] = new ThreadSort(shapes, shapes.length - remainingLength, shapes.length);
         sortThreads[3].start();
 
         for (ThreadSort t : sortThreads)
@@ -164,11 +171,59 @@ public class Main
         m3.join();
 
         long endTime = System.nanoTime();
-        long duration = ((endTime -  startTime) / 1000000);
+        long duration = ((endTime - startTime) / 1000000);
 
         System.out.println("\n|---------------------------- QUAD THREADS ----------------------------|");
-        for(Shape s : m3.getSortedShapes())
+        for (Shape s : m3.getSortedShapes())
             System.out.println(s);
         System.out.println("\nMerge Thread Sort Duration: " + duration);
     }
+
+    /*
+    private static void nSort(Shape[] shapes) throws InterruptedException {
+        Scanner scan = new Scanner(System.in);
+        System.out.println("Use How Many Threads: ");
+        int numThreads = scan.nextInt();
+
+        if (numThreads % 2 == 0) {
+            int length = shapes.length / numThreads;
+            ThreadSort[] sortThreads = new ThreadSort[numThreads];
+
+            for (int loop = 0; loop < numThreads; loop++) {
+                sortThreads[loop] = new ThreadSort(shapes, loop * length,
+                        loop * length + length);
+                sortThreads[loop].start();
+            }
+
+            for (ThreadSort t : sortThreads)
+                t.join();
+
+            for (int loop = 0; loop < numThreads; loop++) {
+                MergeSort merge = new MergeSort(sortThreads[loop].getThreadShapes(),
+                        sortThreads[loop+1].getThreadShapes());
+                merge.start();
+                loop++;
+            }
+
+
+
+        } else {
+            int length = shapes.length / numThreads;
+            int remainingLength = shapes.length - (length * (length - 1));
+
+            ThreadSort[] sortThreads = new ThreadSort[numThreads];
+
+            for (int loop = 0; loop < length; loop++) {
+                sortThreads[loop] = new ThreadSort(shapes, loop * length,
+                        loop * length + length);
+                sortThreads[loop].start();
+            }
+
+            sortThreads[length - 1] = new ThreadSort(shapes, shapes.length - remainingLength, shapes.length);
+            sortThreads[length - 1].start();
+
+            for (ThreadSort t : sortThreads)
+                t.join();
+        }
+    }   */
 }

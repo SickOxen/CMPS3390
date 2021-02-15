@@ -20,7 +20,7 @@ public class ThreadSort extends Thread
     }
 
     /**
-     * Gets the Array of shapes adjusted in this class
+     * Gets the Array of sorted shapes
      * @return ^^^
      */
     public Shape[] getThreadShapes() {return tShapes;}

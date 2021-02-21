@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<BorderPane prefHeight="400.0" prefWidth="600.0" stylesheets="@details.css" xmlns="http://javafx.com/javafx/11.0.1"
+            xmlns:fx="http://javafx.com/fxml/1" fx:controller="rguiles.a5.DetailsController">
+   <padding>
+      <Insets top="20.0" />
+   </padding>
+   <center>
+      <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+         <children>
+            <VBox fx:id="btcVBox" alignment="CENTER" onMouseClicked="#onDetailButtonClicked" prefHeight="314.0" prefWidth="300.0" styleClass="btcVBox">
+               <children>
+                  <Label text="BitCoin">
+                     <font>
+                        <Font name="Roboto Slab Regular" size="35.0" />
+                     </font>
+                  </Label>
+                  <ImageView fitHeight="150.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@images/bitCoin.png" />
+                     </image>
+                  </ImageView>
+                  <Label fx:id="labelBTCvalue">
+                     <font>
+                        <Font name="Roboto Slab Regular" size="35.0" />
+                     </font>
+                     <VBox.margin>
+                        <Insets top="20.0" />
+                     </VBox.margin>
+                  </Label>
+               </children>
+               <HBox.margin>
+                  <Insets bottom="20.0" left="20.0" right="10.0" top="15.0" />
+               </HBox.margin>
+               <cursor>
+                  <Cursor fx:constant="OPEN_HAND" />
+               </cursor>
+            </VBox>
+            <VBox fx:id="etcVBox" alignment="CENTER" onMouseClicked="#onDetailButtonClicked" prefHeight="314.0" prefWidth="300.0" styleClass="etcVBox">
+               <children>
+                  <Label text="Ethereum">
+                     <font>
+                        <Font name="Roboto Slab Regular" size="35.0" />
+                     </font></Label>
+                  <ImageView fitHeight="150.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@images/ethereum.png" />
+                     </image>
+                  </ImageView>
+                  <Label fx:id="labelETCvalue">
+                     <font>
+                        <Font name="Roboto Slab Regular" size="35.0" />
+                     </font>
+                     <VBox.margin>
+                        <Insets top="20.0" />
+                     </VBox.margin>
+                  </Label>
+               </children>
+               <HBox.margin>
+                  <Insets bottom="20.0" left="10.0" right="20.0" top="15.0" />
+               </HBox.margin>
+               <cursor>
+                  <Cursor fx:constant="OPEN_HAND" />
+               </cursor></VBox>
+         </children>
+      </HBox>
+   </center>
+   <top>
+      <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+         <children>
+            <VBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="100.0">
+               <children>
+                  <ImageView fitHeight="50.0" fitWidth="70.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@images/diamond.png" />
+                     </image>
+                  </ImageView>
+               </children>
+            </VBox>
+            <VBox alignment="CENTER" prefHeight="100.0" prefWidth="304.0">
+               <children>
+                  <ImageView fitHeight="100.0" fitWidth="450.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@images/coinTracker.png" />
+                     </image>
+                     <effect>
+                        <ColorAdjust brightness="0.35" contrast="0.41" hue="-1.0" saturation="1.0" />
+                     </effect>
+                  </ImageView>
+               </children>
+            </VBox>
+            <VBox alignment="CENTER_LEFT" prefHeight="200.0" prefWidth="100.0">
+               <children>
+                  <ImageView fitHeight="50.0" fitWidth="70.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@images/diamond.png" />
+                     </image>
+                     <VBox.margin>
+                        <Insets left="5.0" />
+                     </VBox.margin></ImageView>
+               </children>
+            </VBox>
+         </children>
+      </HBox>
+   </top>
+</BorderPane>

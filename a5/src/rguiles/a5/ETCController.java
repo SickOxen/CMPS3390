@@ -19,7 +19,7 @@ public class ETCController {
 
     public void initialize(){
         XYChart.Series<String, Number> series = new XYChart.Series<String, Number>();
-        series.setName("Bitcoin Price");
+        series.setName("Ethereum Price");
 
         series.getData().add(new XYChart.Data<>("2-20", 10351.13));
         series.getData().add(new XYChart.Data<>("3-20", 8522.30));

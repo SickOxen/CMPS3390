@@ -1,5 +1,4 @@
 package rguiles.a5;
-
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -8,7 +7,6 @@ import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-
 import java.io.IOException;
 
 public class DetailsController {
@@ -39,7 +37,11 @@ public class DetailsController {
             primaryStage.setScene(new Scene(root, 700, 475));
         }
 
-        if (mouseEvent.getSource() == etcVBox)
+        if (mouseEvent.getSource() == etcVBox) {
             System.out.println("Change to ETC");
+            Parent root = FXMLLoader.load(getClass().getResource("ETC.fxml"));
+            Stage primaryStage = (Stage) etcVBox.getScene().getWindow();
+            primaryStage.setScene(new Scene(root, 700, 475));
+        }
     }
 }

@@ -7,12 +7,16 @@
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 
-<BorderPane prefHeight="400.0" prefWidth="600.0" stylesheets="@btc.css" xmlns="http://javafx.com/javafx/11.0.1"
-            xmlns:fx="http://javafx.com/fxml/1" fx:controller="rguiles.a5.BTCController">
+<BorderPane prefHeight="400.0" prefWidth="600.0" stylesheets="@btc.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="rguiles.a5.BTCController">
    <top>
       <GridPane BorderPane.alignment="CENTER">
         <columnConstraints>
           <ColumnConstraints halignment="LEFT" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
           <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
         </columnConstraints>
         <rowConstraints>
@@ -33,7 +37,7 @@
                   <Cursor fx:constant="OPEN_HAND" />
                </cursor>
             </ImageView>
-            <ImageView fitHeight="50.0" fitWidth="52.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1">
+            <ImageView fitHeight="79.0" fitWidth="130.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="6">
                <image>
                   <Image url="@images/bitCoin.png" />
                </image>
@@ -41,11 +45,36 @@
                   <Insets right="10.0" top="25.0" />
                </GridPane.margin>
             </ImageView>
+            <ImageView fitHeight="40.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1">
+               <image>
+                  <Image url="@images/diamond.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="50.0" fitWidth="90.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2">
+               <image>
+                  <Image url="@images/rocket.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="40.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="3">
+               <image>
+                  <Image url="@images/diamond.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="50.0" fitWidth="90.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="4">
+               <image>
+                  <Image url="@images/rocket.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="40.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="5">
+               <image>
+                  <Image url="@images/diamond.png" />
+               </image>
+            </ImageView>
          </children>
       </GridPane>
    </top>
    <center>
-      <LineChart title="BTC Price / Time" BorderPane.alignment="CENTER">
+      <LineChart fx:id="priceChart" alternativeRowFillVisible="false" animated="false" stylesheets="@btc.css" title="BTC Price / Time" BorderPane.alignment="CENTER">
         <xAxis>
           <CategoryAxis side="BOTTOM" />
         </xAxis>

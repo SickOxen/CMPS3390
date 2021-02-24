@@ -1,19 +1,23 @@
+// Sets background color of Main Page
 BorderPane{
     -fx-background-color: #4453A6;
 }
 
+// Sets color of box surrounding BitCoin button
 .btcVBox{
     -fx-background-radius: 90;
     -fx-background-color: #6E6F73;
     -fx-padding: 30;
 }
 
+// Sets color of box surrounding Ethereum button
 .etcVBox{
     -fx-background-radius: 90;
     -fx-background-color: #9787FF;
     -fx-padding: 30;
 }
 
+// Changes spacing between boxes for aesthetics
 HBox{
     -fx-spacing: 35px;
 }

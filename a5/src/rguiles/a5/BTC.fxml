@@ -7,6 +7,7 @@
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 
+<!--User Interface Markup used to design the look of the BitCoin Page-->
 <BorderPane prefHeight="400.0" prefWidth="600.0" stylesheets="@btc.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="rguiles.a5.BTCController">
    <top>
       <GridPane BorderPane.alignment="CENTER">

@@ -8,6 +8,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
+<!--User Interface Markup used to design the look of the Main Page-->
 <BorderPane prefHeight="400.0" prefWidth="600.0" stylesheets="@details.css" xmlns="http://javafx.com/javafx/11.0.1"
             xmlns:fx="http://javafx.com/fxml/1" fx:controller="rguiles.a5.DetailsController">
    <padding>

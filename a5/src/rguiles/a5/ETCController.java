@@ -8,15 +8,20 @@ import javafx.scene.chart.XYChart;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
-
 import java.io.IOException;
 
+/**
+ * Controller Class used to control contents of Ethereum Coin page
+ */
 public class ETCController {
     @FXML
     ImageView etcBackArrow;
     @FXML
     LineChart<String, Number> priceChart;
 
+    /**
+     * Initializes a line chart and inserts usable data
+     */
     public void initialize(){
         XYChart.Series<String, Number> series = new XYChart.Series<String, Number>();
         series.setName("Ethereum Price");
@@ -37,7 +42,11 @@ public class ETCController {
         priceChart.getData().add(series);
     }
 
-
+    /**
+     * Switches back to main page from Ethereum page by clicking back button
+     * @param mouseEvent When mouse clicked on back arrow, returns to previous page
+     * @throws IOException extended from FXML
+     */
     public void onBackArrowClick(MouseEvent mouseEvent) throws IOException {
         System.out.println("Return to Main Page");
         Parent root = FXMLLoader.load(getClass().getResource("Details.fxml"));

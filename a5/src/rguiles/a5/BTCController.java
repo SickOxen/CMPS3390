@@ -10,12 +10,18 @@ import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import java.io.IOException;
 
+/**
+ * Controller Class used to control contents of BitCoin page
+ */
 public class BTCController {
     @FXML
     ImageView btcBackArrow;
     @FXML
     LineChart<String, Number> priceChart;
 
+    /**
+     * Initializes a line chart and inserts usable data
+     */
     public void initialize(){
         XYChart.Series<String, Number> series = new XYChart.Series<String, Number>();
         series.setName("Bitcoin Price");
@@ -36,6 +42,11 @@ public class BTCController {
         priceChart.getData().add(series);
     }
 
+    /**
+     * Switches back to main page from BitCoin page by clicking back button
+     * @param mouseEvent When mouse clicked on back arrow, returns to previous page
+     * @throws IOException extended from FXML
+     */
     public void onBackArrowClick(MouseEvent mouseEvent) throws IOException {
             System.out.println("Return to Main Page");
             Parent root = FXMLLoader.load(getClass().getResource("Details.fxml"));

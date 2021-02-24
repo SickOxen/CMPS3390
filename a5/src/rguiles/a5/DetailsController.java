@@ -9,6 +9,9 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import java.io.IOException;
 
+/**
+ * Controller Class used to control contents of the Main page
+ */
 public class DetailsController {
     @FXML
     Label labelBTCvalue;
@@ -19,16 +22,27 @@ public class DetailsController {
     @FXML
     VBox etcVBox;
 
+    /**
+     * Initializes price of BTC & ETC
+     */
     public void initialize() {
         labelBTCvalue.setText("$48,212.01");
         labelETCvalue.setText("$1,836.56");
         System.out.println("Initializer");
     }
 
+    /**
+     * Default Constructor
+     */
     public DetailsController() {
         System.out.println("Constructor");
     }
 
+    /**
+     * Switches to either the Bitcoin or Ethereum pages by clicking corresponding buttons
+     * @param mouseEvent When mouse clicked on BTC or ETC emblem, moves to next page
+     * @throws IOException extended from FXML
+     */
     public void onDetailButtonClicked(MouseEvent mouseEvent) throws IOException {
         if (mouseEvent.getSource() == btcVBox){
             System.out.println("Change to BTC");

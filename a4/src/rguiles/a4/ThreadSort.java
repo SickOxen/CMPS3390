@@ -2,7 +2,7 @@ package rguiles.a4;
 import rguiles.a3.*;
 
 /**
- * ThreadSort Class: Sorts multiple Shape[] arrays using a basic Bubble Sort [Extends Thread]
+ * ThreadSort Class: Sorts Shape[] arrays using a basic Bubble Sort [Extends Thread]
  */
 public class ThreadSort extends Thread
 {
@@ -32,7 +32,6 @@ public class ThreadSort extends Thread
     @Override
     public void run(){
         System.out.println("Thread Start");
-
         Shape temp;
         int length = this.tShapes.length;
 

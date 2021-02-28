@@ -8,12 +8,12 @@ BorderPane{
     -fx-stroke-width: 3px;
 }
 
-// Color of bitcoin line on the line chart
+// Color of first line on the line chart
 .default-color0.chart-series-line{
-    -fx-stroke: #B3373B;
+    -fx-stroke: #F28D35;
 }
 
-// Color of ethereum line on the line chart
+// Color of second line on the line chart
 .default-color1.chart-series-line{
     -fx-stroke: #777;
 }

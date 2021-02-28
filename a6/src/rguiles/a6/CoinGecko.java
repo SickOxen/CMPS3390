@@ -9,12 +9,23 @@ import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 
+/**
+ * Class that controls REST features from CoinGecko website
+ */
 public class CoinGecko {
 
+    /**
+     * Builds HTTP client
+     */
     private static final HttpClient httpClient = HttpClient.newBuilder()
             .version(HttpClient.Version.HTTP_2)
             .build();
 
+    /**
+     * Builds HTTP Request and updates an Array with coin price history
+     * @param coin Instance of passed coin
+     * @param days Number of requested days
+     */
     public static void updatePriceHistory(Coin coin, int days) {
         coin.getHistoricalValues().getData().clear();
         HttpRequest request = HttpRequest.newBuilder()
@@ -39,6 +50,10 @@ public class CoinGecko {
 
     }
 
+    /**
+     * Builds HTTP Request and stores current price of coin
+     * @param coin Instance of passed coin
+     */
     public static void updateCurrentPrice(Coin coin){
         HttpRequest request = HttpRequest.newBuilder()
                 .GET()

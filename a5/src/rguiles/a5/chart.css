@@ -1,4 +1,4 @@
-// Sets background color of BitCoin Page
+// Sets background color of Chart Page
 BorderPane{
     -fx-background-color: #95C8F5;
 }
@@ -8,12 +8,22 @@ BorderPane{
     -fx-stroke-width: 3px;
 }
 
-// Color of line on the line chart
+// Color of bitcoin line on the line chart
 .default-color0.chart-series-line{
     -fx-stroke: #B3373B;
 }
 
+// Color of ethereum line on the line chart
+.default-color1.chart-series-line{
+    -fx-stroke: #777;
+}
+
 // Transparency makes line chart easier to read
 .default-color0.chart-line-symbol{
+    -fx-background-color: transparent, transparent;
+}
+
+// Transparency makes line chart easier to read
+.default-color1.chart-line-symbol{
     -fx-background-color: transparent, transparent;
 }

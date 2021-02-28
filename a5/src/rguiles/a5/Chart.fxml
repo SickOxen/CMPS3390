@@ -1,27 +1,32 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.*?>
+<?import javafx.collections.*?>
 <?import javafx.geometry.*?>
 <?import javafx.scene.*?>
 <?import javafx.scene.chart.*?>
+<?import javafx.scene.control.*?>
 <?import javafx.scene.effect.*?>
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 
 <!--User Interface Markup used to design the look of the BitCoin Page-->
-<BorderPane prefHeight="400.0" prefWidth="600.0" stylesheets="@btc.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="rguiles.a5.BTCController">
+
+<BorderPane prefHeight="400.0" prefWidth="600.0" stylesheets="@chart.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="rguiles.a5.ChartController">
    <top>
       <GridPane BorderPane.alignment="CENTER">
         <columnConstraints>
-          <ColumnConstraints halignment="LEFT" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-          <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+          <ColumnConstraints halignment="LEFT" hgrow="SOMETIMES" maxWidth="90.0" minWidth="90.0" prefWidth="90.0" />
+            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="155.0" minWidth="155.0" prefWidth="155.0" />
+            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="32.0" minWidth="32.0" prefWidth="32.0" />
+            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="64.0" minWidth="64.0" prefWidth="64.0" />
+            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="32.0" minWidth="32.0" prefWidth="32.0" />
+            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="155.0" minWidth="155.0" prefWidth="155.0" />
+          <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" maxWidth="90.0" minWidth="90.0" prefWidth="90.0" />
         </columnConstraints>
         <rowConstraints>
           <RowConstraints minHeight="50.0" prefHeight="50.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="50.0" prefHeight="50.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
             <ImageView fx:id="btcBackArrow" fitHeight="49.0" fitWidth="41.0" onMouseClicked="#onBackArrowClick" pickOnBounds="true" preserveRatio="true">
@@ -71,13 +76,39 @@
                   <Image url="@images/diamond.png" />
                </image>
             </ImageView>
+            <ComboBox fx:id="cbCoinSelector" onAction="#onCoinSelectionChanged" prefHeight="26.0" prefWidth="140.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                    <items>
+                        <FXCollections fx:factory="observableArrayList">
+                            <String fx:value="Bitcoin" />
+                            <String fx:value="Ethereum" />
+                            <String fx:value="ALL" />
+                        </FXCollections>
+                    </items>
+                <value>
+                    <String fx:value="Bitcoin" />
+                </value>
+            </ComboBox>
+            <ComboBox fx:id="cbDateRange" onAction="#onDateRangeChange" prefHeight="26.0" prefWidth="140.0" GridPane.columnIndex="5" GridPane.rowIndex="1">
+                <items>
+                    <FXCollections fx:factory="observableArrayList">
+                        <String fx:value="Year" />
+                        <String fx:value="90 Days" />
+                        <String fx:value="60 Days" />
+                        <String fx:value="30 Days" />
+                        <String fx:value="Week" />
+                    </FXCollections>
+                </items>
+                <value>
+                    <String fx:value="Year" />
+                </value>
+            </ComboBox>
          </children>
       </GridPane>
    </top>
    <center>
-      <LineChart fx:id="priceChart" alternativeRowFillVisible="false" animated="false" stylesheets="@btc.css" title="BTC Price / Time" BorderPane.alignment="CENTER">
+      <LineChart fx:id="priceChart" alternativeRowFillVisible="false" animated="false" stylesheets="@chart.css" title="Price Over Time" BorderPane.alignment="CENTER">
         <xAxis>
-          <CategoryAxis side="BOTTOM" />
+          <NumberAxis side="BOTTOM" />
         </xAxis>
         <yAxis>
           <NumberAxis side="LEFT" />

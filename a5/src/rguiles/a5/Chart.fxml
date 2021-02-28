@@ -10,7 +10,7 @@
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 
-<!--User Interface Markup used to design the look of the BitCoin Page-->
+<!--User Interface Markup used to design the look of the Line Chart Page-->
 
 <BorderPane prefHeight="400.0" prefWidth="600.0" stylesheets="@chart.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="rguiles.a5.ChartController">
    <top>
@@ -43,7 +43,7 @@
                   <Cursor fx:constant="OPEN_HAND" />
                </cursor>
             </ImageView>
-            <ImageView fitHeight="79.0" fitWidth="130.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="6">
+            <ImageView fitHeight="79.0" fitWidth="130.0" opacity="0.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="6">
                <image>
                   <Image url="@images/bitCoin.png" />
                </image>

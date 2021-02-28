@@ -33,7 +33,7 @@ public class DetailsController {
     Timer bitcoinTimer, ethereumTimer;
 
     /**
-     * Initializes price of BTC & ETC
+     * Initializes Coin Objects & creates a timer which updates the coin price every 5 seconds
      */
     public void initialize() {
         System.out.println("Initializer");
@@ -63,20 +63,21 @@ public class DetailsController {
     public DetailsController() {System.out.println("Constructor");}
 
     /**
-     * Switches to either the Bitcoin or Ethereum pages by clicking corresponding buttons
+     * Switches to the Line Chart page by clicking corresponding buttons
      * @param mouseEvent When mouse clicked on BTC or ETC emblem, moves to next page
      * @throws IOException extended from FXML
      */
     public void onDetailButtonClicked(MouseEvent mouseEvent) throws IOException {
-
         shutdown();
-
         System.out.println("Change to Chart");
         Parent root = FXMLLoader.load(getClass().getResource("Chart.fxml"));
         Stage primaryStage = (Stage) btcVBox.getScene().getWindow();
         primaryStage.setScene(new Scene(root, 700, 475));
     }
 
+    /**
+     * Stops the REST GET operation where coin prices are continuously refreshed
+     */
     public void shutdown(){
         System.out.println("Shutdown Initiated : Stopping Timers");
         bitcoinTimer.cancel();

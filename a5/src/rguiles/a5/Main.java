@@ -1,6 +1,6 @@
 package rguiles.a5;
+
 import javafx.application.Application;
-import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -9,9 +9,15 @@ import javafx.stage.Stage;
 /**
  * Main Driver Class for a5
  * @author Richard Guiles
- * @version 1.2
+ * @version 1.3
  */
 public class Main extends Application {
+
+    /**
+     * Default Main
+     * @param args Launch args from cmdline
+     */
+    public static void main(String[] args) {launch(args);}
 
     /**
      * Creates instance of javafx, opens a new scene, and displays application.
@@ -30,6 +36,4 @@ public class Main extends Application {
         primaryStage.show();
         primaryStage.setOnHidden(event -> controller.shutdown());
     }
-
-    public static void main(String[] args) {launch(args);}
 }

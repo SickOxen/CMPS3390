@@ -1,11 +1,11 @@
 package rguiles.a5;
+
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.chart.LineChart;
-import javafx.scene.chart.XYChart;
 import javafx.scene.control.ComboBox;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -16,7 +16,7 @@ import rguiles.a6.CoinGecko;
 import java.io.IOException;
 
 /**
- * Controller Class used to control contents of BitCoin page
+ * Controller Class used to control contents of Line Chart page
  */
 public class ChartController {
     @FXML
@@ -46,7 +46,7 @@ public class ChartController {
     }
 
     /**
-     * Switches back to main page from BitCoin page by clicking back button
+     * Switches back to main page from LineChart page by clicking back button
      * @param mouseEvent When mouse clicked on back arrow, returns to previous page
      * @throws IOException extended from FXML
      */
@@ -57,6 +57,10 @@ public class ChartController {
             primaryStage.setScene(new Scene(root, 700, 475));
     }
 
+    /**
+     * Updates the Price History of the coin depenedent upon the specified number of days
+     * @param actionEvent Selecting a different Date Range updates Price History of coins
+     */
     public void onDateRangeChange(ActionEvent actionEvent) {
         int days = 0;
         switch ((String)cbDateRange.getValue()){
@@ -81,6 +85,9 @@ public class ChartController {
         CoinGecko.updatePriceHistory(ethereum, days);
     }
 
+    /**
+     * Clears the Line Chart and then re-displays the desired choice from CoinSelector ComboBox
+     */
     private void updateChart(){
         priceChart.getData().clear();
         switch((String) cbCoinSelector.getValue()){
@@ -97,6 +104,10 @@ public class ChartController {
         }
     }
 
+    /**
+     * Calls the updateChart() function and passes the Coin Selected
+     * @param actionEvent Selecting a different coin updates Line Chart
+     */
     public void onCoinSelectionChanged(ActionEvent actionEvent) {
         updateChart();
     }

@@ -8,15 +8,21 @@ import java.io.ObjectInputStream;
 import java.net.Socket;
 
 /**
- *
+ * ServerListener Class: Client side operations that wait for response from server
  */
 public class ServerListener extends Thread {
 
-    private Socket socket;
-    private InputStream inputStream;
-    private ObjectInputStream objectInputStream;
+    private final Socket socket;
+    private final InputStream inputStream;
+    private final ObjectInputStream objectInputStream;
     Controller controller;
 
+    /**
+     * Constructor that sets the controller, socket, and streams
+     * @param socket server side port
+     * @param controller controls flow of data
+     * @throws IOException
+     */
     public ServerListener(Socket socket, Controller controller) throws IOException {
         this.socket = socket;
         this.controller = controller;
@@ -24,6 +30,9 @@ public class ServerListener extends Thread {
         objectInputStream = new ObjectInputStream(inputStream);
     }
 
+    /**
+     * Continuous loop of the program, endlessly checking for message from user
+     */
     @Override
     public void run(){
         try{

@@ -11,6 +11,9 @@ import jforsythe.MessageType;
 import java.io.*;
 import java.net.Socket;
 
+/**
+ * Controller Class: Contains the functions for IO operations
+ */
 public class Controller {
     @FXML
     TextField textInput;
@@ -23,6 +26,10 @@ public class Controller {
     private OutputStream outputStream;
     private ObjectOutputStream objectOutputStream;
 
+    /**
+     * Initializes sockets and outputStreams
+     * @throws IOException
+     */
     public void initialize() throws IOException {
         TextInputDialog nameInput = new TextInputDialog("Enter Username");
         nameInput.setHeaderText("Welcome to CMPS 3390 Chat");
@@ -40,10 +47,15 @@ public class Controller {
         serverListener.start();
 
         Message temp = new Message(MessageType.CONNECT, name, "Appropriate Connect Message");
-        objectOutputStream = new ObjectOutputStream(outputStream);
+        objectOutputStream.writeObject(temp);
         objectOutputStream.flush();
     }
 
+    /**
+     * String output whenever an event is registered from the textfield in chat.fxml
+     * @param actionEvent user message
+     * @throws IOException
+     */
     public void onInputAction(ActionEvent actionEvent) throws IOException {
         Message temp = new Message(MessageType.MESSAGE, name, textInput.getText());
         textInput.clear();
@@ -51,12 +63,20 @@ public class Controller {
         objectOutputStream.flush();
     }
 
+    /**
+     * Closes all open sockets and streams
+     * @throws IOException
+     */
     public void exit() throws IOException {
         objectOutputStream.close();
         outputStream.close();
         socket.close();
     }
 
+    /**
+     * Appends any sent message to the text area for display history
+     * @param msg user message
+     */
     public void addMessage(String msg) {
         textOutput.appendText(msg);
     }

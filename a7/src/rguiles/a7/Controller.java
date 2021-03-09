@@ -40,7 +40,7 @@ public class Controller {
         socket = new Socket("odin.cs.csub.edu", 3390);
         outputStream = socket.getOutputStream();
         outputStream.flush();
-        objectOutputStream = new ObjectOutputStream(objectOutputStream);
+        objectOutputStream = new ObjectOutputStream(outputStream);
         objectOutputStream.flush();
 
         ServerListener serverListener = new ServerListener(this.socket, this);

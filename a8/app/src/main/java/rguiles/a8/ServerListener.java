@@ -9,6 +9,9 @@ import java.net.Socket;
 
 import jforsythe.Message;
 
+/**
+ * Controller Class for ServerListener. Creates connection to Odin. Extends Thread
+ */
 public class ServerListener extends Thread {
     private Socket socket;
     private InputStream inputStream;
@@ -16,6 +19,11 @@ public class ServerListener extends Thread {
     private EditText output;
     public boolean running = true;
 
+    /**
+     * Constructor: Sets socket, output, and input streams
+     * @param socket Generates new socket for connection
+     * @param output Message to be sent across stream
+     */
     public ServerListener(Socket socket, EditText output){
         this.socket = socket;
         this.output = output;
@@ -27,6 +35,10 @@ public class ServerListener extends Thread {
         }
     }
 
+    /**
+     * Infinite loop that outputs user messages to the Chat History until app is closed
+     * Closes streams when exited.
+     */
     @Override
     public void run(){
         try{

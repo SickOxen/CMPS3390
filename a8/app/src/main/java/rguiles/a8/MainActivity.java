@@ -24,6 +24,11 @@ import java.util.logging.SocketHandler;
 import jforsythe.Message;
 import jforsythe.MessageType;
 
+/**
+ * Main Entry point of Chat Application
+ * @author Richard Guiles
+ * @version 1.1
+ */
 public class MainActivity extends AppCompatActivity implements TextView.OnEditorActionListener {
     private EditText textInput;
     private EditText textOutput;
@@ -33,6 +38,10 @@ public class MainActivity extends AppCompatActivity implements TextView.OnEditor
     private ObjectOutputStream objectOutputStream;
     private ServerListener serverListener;
 
+    /**
+     * Generates a new thread when application is launched
+     * @param savedInstanceState Possibility of passing data from previous app usage
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,6 +55,9 @@ public class MainActivity extends AppCompatActivity implements TextView.OnEditor
         getUserName();
     }
 
+    /**
+     * Force closes all streams in order to securely shutdown the application
+     */
     @Override
     protected void onDestroy(){
         super.onDestroy();
@@ -59,6 +71,9 @@ public class MainActivity extends AppCompatActivity implements TextView.OnEditor
         }
     }
 
+    /**
+     * Connects the socket to the port and creates new message instance
+     */
     private void connect() {
         try {
             socket = new Socket("odin.cs.csub.edu", 3390);
@@ -79,6 +94,9 @@ public class MainActivity extends AppCompatActivity implements TextView.OnEditor
         }
     }
 
+    /**
+     * Upon entry, generates window to ask user for their username
+     */
     private void getUserName() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("User Name");
@@ -98,6 +116,13 @@ public class MainActivity extends AppCompatActivity implements TextView.OnEditor
         builder.show();
     }
 
+    /**
+     * Gets each user message from the textbox and stores it for use
+     * @param v TextView from the cmdline of the app
+     * @param actionId Identification for each unique message
+     * @param event Keyboard usage
+     * @return True when function is finished running
+     */
     @Override
     public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
         if(event == null || event.getAction() == KeyEvent.ACTION_UP) {

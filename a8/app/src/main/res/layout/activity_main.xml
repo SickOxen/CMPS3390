@@ -8,6 +8,8 @@
     android:orientation="vertical"
     android:background="@color/purple">
 
+    <!--Design of the TextArea for the Chat History-->
+
     <EditText
         android:id="@+id/textOutput"
         android:layout_width="match_parent"
@@ -20,6 +22,8 @@
         android:focusable="false"
         android:clickable="false"
         />
+
+    <!--Design of the TextBox for the Message Input-->
 
     <EditText
         android:id="@+id/textInput"

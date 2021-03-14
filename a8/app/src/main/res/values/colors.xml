@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <color name="offWhite">#E3E2E1</color>
+    <color name="sunlight">#D9B9A7</color>
+    <color name="peach">#D99582</color>
+    <color name="purple">#816C85</color>
+    <color name="bright_purple">#FFBB86FC</color>
+    <color name="light_blue">#A1C2CC</color>
+
+
+    <color name="dark_brown">#100B09</color>
+    <color name="charcoal">#262621</color>
+    <color name="rose">#A68D85</color>
+    <color name="dirt">#594947</color>
+    <color name="teal">#548C86</color>
+    <color name="dark_blue">#274655</color>
+
+</resources>

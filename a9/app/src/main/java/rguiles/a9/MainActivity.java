@@ -1,0 +1,67 @@
+package rguiles.a9;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
+
+import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
+
+import com.loopj.android.http.AsyncHttpClient;
+import com.loopj.android.http.JsonHttpResponseHandler;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import cz.msebera.android.httpclient.Header;
+
+public class MainActivity extends AppCompatActivity {
+
+    private FragmentManager fragmentManager;
+    private Fragment bitcoinFragment, ethereumFragment;
+    private Coin bitcoin, ethereum;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+        fragmentManager = getSupportFragmentManager();
+        bitcoin = new Coin("bitcoin");
+        ethereum = new Coin("ethereum");
+        getCurrentValue(bitcoin);
+        getCurrentValue(ethereum);
+        bitcoinFragment = new DetailsFragment(bitcoin);
+        ethereumFragment = new DetailsFragment(ethereum);
+    }
+
+    private void getCurrentValue(Coin coin) {
+        String url = String.format("https://api.coingecko.com/api/v3/simple/price?ids=%s&vs_currencies=usd",
+                coin.getName());
+
+        AsyncHttpClient client = new AsyncHttpClient();
+        client.get(url, new JsonHttpResponseHandler(){
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                try {
+                    JSONObject json = response.getJSONObject(coin.getName());
+                    Log.d("GECKO", String.valueOf(response));
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+    }
+
+    public void onTableRowClick(View view) {
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        if(view.getId() == R.id.trBitcoin){
+            fragmentTransaction.replace(R.id.flFragment, bitcoinFragment);
+            fragmentTransaction.commit();
+        } else if (view.getId() == R.id.trEthereum){
+            fragmentTransaction.replace(R.id.flFragment, ethereumFragment);
+            fragmentTransaction.commit();
+        }
+    }
+}

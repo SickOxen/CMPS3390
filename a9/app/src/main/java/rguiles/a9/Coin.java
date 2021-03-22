@@ -1,8 +1,16 @@
 package rguiles.a9;
 
-public class Coin {
-    String name;
-    double curValue;
+import androidx.databinding.BaseObservable;
+import androidx.databinding.Bindable;
+
+import java.text.NumberFormat;
+import java.util.Locale;
+
+public class Coin extends BaseObservable {
+    private String name;
+    private double curValue;
+
+    NumberFormat numberFormat = NumberFormat.getCurrencyInstance(Locale.US);
 
     public Coin(String name) {
         this.name = name;
@@ -16,11 +24,13 @@ public class Coin {
         this.name = name;
     }
 
-    public double getCurValue() {
-        return curValue;
+    @Bindable
+    public String getCurValue() {
+        return numberFormat.format(curValue);
     }
 
     public void setCurValue(double curValue) {
         this.curValue = curValue;
+        notifyPropertyChanged(BR.curValue);
     }
 }

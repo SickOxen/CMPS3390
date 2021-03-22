@@ -29,9 +29,7 @@ import java.util.ArrayList;
 import cz.msebera.android.httpclient.Header;
 
 /**
- * A simple {@link Fragment} subclass.
- * Use the {@link DetailsFragment#newInstance} factory method to
- * create an instance of this fragment.
+ * Details Class that controls the Line Chart Fragment
  */
 public class DetailsFragment extends Fragment {
 
@@ -42,6 +40,11 @@ public class DetailsFragment extends Fragment {
     int color = 0;
     private final Context context;
 
+    /**
+     * Default Constructor: sets variable and colors
+     * @param context ID for line graph instance
+     * @param coin Crypto coin type
+     */
     public DetailsFragment(Context context, Coin coin) {
         this.coin = coin;
         this.context = context;
@@ -54,6 +57,9 @@ public class DetailsFragment extends Fragment {
         getHistoricalData();
     }
 
+    /**
+     * Retrieves and instantiates an array of coin price history
+     */
     private void getHistoricalData() {
         String url = String.format("https://api.coingecko.com/api/v3/coins/%s/market_chart?vs_currency=usd&days=90&interval=daily",
                 coin.getName());
@@ -87,6 +93,9 @@ public class DetailsFragment extends Fragment {
         });
     }
 
+    /**
+     * Updates Line Chart
+     */
     private void updateChart() {
         if(lineChart != null){
             lineChart.setData(data);
@@ -95,12 +104,23 @@ public class DetailsFragment extends Fragment {
         }
     }
 
+    /**
+     * Inflates and Creates View
+     * @param inflater Instantiates contents of layout xml files
+     * @param container View that holds other views
+     * @param savedInstanceState Saved configs from dead processes
+     * @return view
+     */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         return inflater.inflate(R.layout.fragment_details, container, false);
     }
 
+    /**
+     * Sets configuration of line charts
+     * @param savedInstanceState previous config of chart process
+     */
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState){
         super.onActivityCreated(savedInstanceState);

@@ -22,12 +22,21 @@ import org.w3c.dom.Text;
 import cz.msebera.android.httpclient.Header;
 import rguiles.a9.databinding.ActivityMainBinding;
 
+/**
+ * Main Driver of Coin Tracker Application
+ * @author Richard Guiles
+ * @version 1.1
+ */
 public class MainActivity extends AppCompatActivity {
 
     private FragmentManager fragmentManager;
     private Fragment bitcoinFragment, ethereumFragment;
     private Coin bitcoin, ethereum;
 
+    /**
+     * Creates Activity upon launch of application
+     * @param savedInstanceState previous settings of app launch
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,6 +56,10 @@ public class MainActivity extends AppCompatActivity {
         fragmentTransaction.commit();
     }
 
+    /**
+     * Retrieves coin price from outside source and refreshes every 10 seconds
+     * @param coin Instance of coin object
+     */
     private void getCurrentValue(Coin coin) {
         Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
@@ -75,6 +88,10 @@ public class MainActivity extends AppCompatActivity {
         }, 500);
     }
 
+    /**
+     * Transitions between views on table clicks
+     * @param view view of specified crypto chart
+     */
     public void onTableRowClick(View view) {
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         if(view.getId() == R.id.trBitcoin){

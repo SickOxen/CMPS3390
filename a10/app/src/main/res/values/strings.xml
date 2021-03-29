@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">List Tracker</string>
+    <string name="app_name">To-Do List</string>
     <string name="todo">Todo</string>
     <string name="assignments">Assignments</string>
     <string name="groceries">Groceries</string>

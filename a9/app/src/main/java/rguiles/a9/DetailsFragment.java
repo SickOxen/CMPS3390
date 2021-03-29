@@ -75,7 +75,7 @@ public class DetailsFragment extends Fragment {
                     for(int loop = 0; loop < prices.length(); loop++){
                         float val = (float)prices.getJSONArray(loop).getDouble(1);
                         yValues.add(new Entry(loop, val));
-                        // Log.d("HIST", String.valueOf(prices));
+                        Log.d("HIST", String.valueOf(prices));
                     }
 
                     LineDataSet dataSet = new LineDataSet(yValues, "Daily Price");

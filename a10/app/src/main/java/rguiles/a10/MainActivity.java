@@ -18,6 +18,11 @@ import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.ArrayList;
 
+/**
+ * Main Driver of To-Do List Application
+ * @author Richard Guiles
+ * @version 1.0
+ */
 public class MainActivity extends AppCompatActivity implements TextView.OnEditorActionListener {
 
     private ListView listView;
@@ -28,6 +33,10 @@ public class MainActivity extends AppCompatActivity implements TextView.OnEditor
     private String selectedCollection = "Todo";
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
 
+    /**
+     * Creates Activity upon launch of application
+     * @param savedInstanceState previous settings of app launch
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,18 +51,23 @@ public class MainActivity extends AppCompatActivity implements TextView.OnEditor
         input = findViewById(R.id.etInput);
         input.setOnEditorActionListener(this);
 
-
         tabs = findViewById(R.id.tabLayout);
         setupTabClickListener();
 
         updateList();
     }
 
+    /**
+     * Retrieves stored list in the database
+     */
     private void updateList() {
         showToast("Getting List", Toast.LENGTH_SHORT);
         Database.getList(db, selectedCollection, items, itemsAdapter);
     }
 
+    /**
+     * Updates list whenever a different tab is selected
+     */
     private void setupTabClickListener() {
         tabs.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
@@ -79,6 +93,9 @@ public class MainActivity extends AppCompatActivity implements TextView.OnEditor
         });
     }
 
+    /**
+     * Deletes list item and updates db on held click
+     */
     private void setupLongClickHandler() {
         listView.setOnItemLongClickListener((parent, view, position, id) -> {
             ListItem tmpItem = items.remove(position);
@@ -89,12 +106,24 @@ public class MainActivity extends AppCompatActivity implements TextView.OnEditor
         });
     }
 
+    /**
+     * Displays a 'toast' message on screen to make app more responsive
+     * @param message string passed from function call
+     * @param length amount of time message stays on screen
+     */
     private void showToast(String message, int length) {
         Toast toast = Toast.makeText(this, message, length);
         toast.setGravity(Gravity.CENTER, 0, -30);
         toast.show();
     }
 
+    /**
+     * Controls user input, stores item in db and list
+     * @param v textbox field
+     * @param actionId id of v
+     * @param event registers event action
+     * @return bool of action instance
+     */
     @Override
     public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
         if(event == null || event.getAction() == KeyEvent.ACTION_UP) {

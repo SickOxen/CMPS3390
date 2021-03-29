@@ -20,8 +20,17 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * Class that controls the addition and retrieval of items from the db
+ */
 public class Database {
 
+    /**
+     * Adds item to the db
+     * @param db Database
+     * @param selectedCollection reference to type of item (similar to a normal db table)
+     * @param item string to be added to db
+     */
     public static void add(FirebaseFirestore db, String selectedCollection, ListItem item){
         Map<String, Object> listItem = new HashMap<>();
         listItem.put("item", item);
@@ -42,6 +51,13 @@ public class Database {
                 });
     }
 
+    /**
+     * Retrieves list of items from the db
+     * @param db Database
+     * @param selectedCollection reference to type of item
+     * @param items array of items from db
+     * @param itemsAdapter passes array
+     */
     public static void getList(FirebaseFirestore db, String selectedCollection,
                                ArrayList<ListItem> items, ArrayAdapter<ListItem> itemsAdapter){
         db.collection(selectedCollection)
@@ -68,6 +84,14 @@ public class Database {
                 });
     }
 
+    /**
+     * Removes item from the db
+     * @param db Database
+     * @param selectedCollection reference to type of item
+     * @param items array of items from db
+     * @param itemsAdapter passes array
+     * @param removedItem item removed from db
+     */
     public static void removeItem(FirebaseFirestore db, String selectedCollection,
                                   ArrayList<ListItem> items, ArrayAdapter<ListItem> itemsAdapter, ListItem removedItem){
         db.collection(selectedCollection).whereEqualTo("item.dttm", removedItem.getDttm())

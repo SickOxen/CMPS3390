@@ -10,6 +10,9 @@ import android.util.DisplayMetrics;
 import java.util.ArrayList;
 import java.util.Iterator;
 
+/**
+ * Class that controls instance of player spaceship
+ */
 public class Player {
 
     private float x, y, prevX, prevY;
@@ -21,6 +24,10 @@ public class Player {
     private final Resources res;
     ArrayList<Laser> lasers = new ArrayList<>();
 
+    /**
+     * Constructor that instantiates needed ship attributes
+     * @param res android resources
+     */
     public Player(Resources res){
         this.res = res;
         playerImg = BitmapFactory.decodeResource(res, R.mipmap.player);
@@ -34,6 +41,12 @@ public class Player {
         y = (dm.heightPixels * 0.75f);
     }
 
+    /**
+     * Continuously updates player ship and lasers
+     * and determines which asset to display
+     * @param touchX position of players finger on screen x
+     * @param touchY position of players finger on screen y
+     */
     public void update(int touchX, int touchY){
 
         if(touchX > 0 && touchY > 0){
@@ -81,6 +94,10 @@ public class Player {
         }
     }
 
+    /**
+     * Continuously player assets to the screen
+     * @param canvas android activity of game
+     */
     public void draw(Canvas canvas){
         canvas.drawBitmap(curImage, this.x, this.y, this.paint);
         for(Laser laser : lasers) {

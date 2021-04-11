@@ -6,6 +6,9 @@ import android.graphics.Canvas;
 import android.view.MotionEvent;
 import android.view.SurfaceView;
 
+/**
+ * Class that controls the activity that actually runs the game
+ */
 public class GameView extends SurfaceView implements Runnable {
 
     private final Background background1, background2;
@@ -14,6 +17,12 @@ public class GameView extends SurfaceView implements Runnable {
     private int touchX, touchY;
     private final Player player;
 
+    /**
+     * Constructor that sets the background and player instances
+     * @param context android parameter
+     * @param screenX width of user screen
+     * @param screenY height of user screen
+     */
     public GameView(Context context, int screenX, int screenY) {
         super(context);
         Resources res = getResources();
@@ -24,6 +33,11 @@ public class GameView extends SurfaceView implements Runnable {
         player = new Player(res);
     }
 
+    /**
+     * Gets the (x,y) location of the user's finger
+     * @param event triggered when user moves
+     * @return true when motion detected
+     */
     @Override
     public boolean onTouchEvent(MotionEvent event){
         touchX = (int)event.getX();
@@ -31,6 +45,9 @@ public class GameView extends SurfaceView implements Runnable {
         return true;
     }
 
+    /**
+     * Endlessly call necessary functions while game is running
+     */
     @Override
     public void run() {
         while(isPlaying){
@@ -40,12 +57,18 @@ public class GameView extends SurfaceView implements Runnable {
         }
     }
 
+    /**
+     * Continuously update background and player instances
+     */
     private void update() {
         background1.update();
         background2.update();
         player.update(touchX, touchY);
     }
 
+    /**
+     * Continuously draw all picture assets to the screen
+     */
     private void draw(){
         if(getHolder().getSurface().isValid()) {
             Canvas canvas = getHolder().lockCanvas();
@@ -56,6 +79,9 @@ public class GameView extends SurfaceView implements Runnable {
         }
     }
 
+    /**
+     * Sleeps all threads until next function calls
+     */
     private void sleep() {
         try {
             Thread.sleep(17);
@@ -64,6 +90,9 @@ public class GameView extends SurfaceView implements Runnable {
         }
     }
 
+    /**
+     * Stops all threads if game is moved to background
+     */
     public void pause(){
         isPlaying = false;
         try {
@@ -73,6 +102,9 @@ public class GameView extends SurfaceView implements Runnable {
         }
     }
 
+    /**
+     * Recreates and launches threads when game is resumed
+     */
     public void resume(){
         isPlaying = true;
         thread = new Thread(this);

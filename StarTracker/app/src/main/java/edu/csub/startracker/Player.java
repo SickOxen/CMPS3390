@@ -7,6 +7,9 @@ import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.util.DisplayMetrics;
 
+import java.util.ArrayList;
+import java.util.Iterator;
+
 public class Player {
 
     private float x, y, prevX, prevY;
@@ -14,9 +17,12 @@ public class Player {
     private Bitmap curImage;
     private Paint paint = new Paint();
     private final float dpi;
-    private int frameTicks = 0;
+    private int frameTicks = 0, shotTicks = 0;
+    private final Resources res;
+    ArrayList<Laser> lasers = new ArrayList<>();
 
     public Player(Resources res){
+        this.res = res;
         playerImg = BitmapFactory.decodeResource(res, R.mipmap.player);
         playerLeft = BitmapFactory.decodeResource(res, R.mipmap.player_left);
         playerRight = BitmapFactory.decodeResource(res, R.mipmap.player_right);
@@ -52,9 +58,33 @@ public class Player {
 
         prevX = x;
         prevY = y;
+        shotTicks++;
+
+        if(shotTicks >= 10){
+            Laser tmp = new Laser(this.res);
+            tmp.setX(x + (playerImg.getWidth() / 2f) - tmp.getMidX());
+            tmp.setY(y - (tmp.getHeight() / 2f));
+
+            lasers.add(tmp);
+            shotTicks = 0;
+        }
+
+
+        for(Iterator<Laser> iterator = lasers.iterator(); iterator.hasNext();){
+            Laser laser = iterator.next();
+            if(!laser.isOnScreen())
+                iterator.remove();
+        }
+
+        for(Laser laser : lasers){
+            laser.update();
+        }
     }
 
     public void draw(Canvas canvas){
         canvas.drawBitmap(curImage, this.x, this.y, this.paint);
+        for(Laser laser : lasers) {
+            laser.draw(canvas);
+        }
     }
 }

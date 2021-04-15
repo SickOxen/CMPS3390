@@ -10,12 +10,12 @@ import android.graphics.Paint;
 /**
  * Class that controls instances of all lasers
  */
-public class Laser {
+public class Laser implements GameObject{
 
-    private float x, y;
+    private float x, y, dpi, health = 100f;
     private Bitmap laser;
-    private float dpi;
     private Paint paint = new Paint();
+    private final int width, height;
 
     /**
      * Default constructor
@@ -23,6 +23,8 @@ public class Laser {
      */
     public Laser(Resources res) {
         laser = BitmapFactory.decodeResource(res, R.mipmap.bullet);
+        width = laser.getWidth();
+        height = laser.getHeight();
         dpi = res.getDisplayMetrics().densityDpi;
     }
 
@@ -30,44 +32,73 @@ public class Laser {
      * Checks if laser is on screen or not
      * @return true or false
      */
-    public boolean isOnScreen(){
-        return !(y < getHeight());
-    }
+    public boolean isOnScreen(){return !(y < getHeight());}
 
     /**
      * Continuously creates new lasers
      */
-    public void update(){
-        y -= 0.1f * dpi;
-    }
+    public void update(){y -= 0.1f * dpi;}
 
     /**
      * Draws all lasers to the screen
      */
-    public void draw(Canvas canvas){
-        canvas.drawBitmap(laser, this.x, this.y, this.paint);
-    }
+    public void draw(Canvas canvas){canvas.drawBitmap(laser, this.x, this.y, this.paint);}
 
     /**
      * Gets half of lasers width
-     * @return x
+     * @return midpoint
      */
-    public float getMidX(){
-        return (laser.getWidth() / 2f);
-    }
+    public float getMidX(){return (laser.getWidth() / 2f);}
 
     /**
-     * Gets lasers height
-     * @return y
+     * Get laser width
+     * @return width
      */
-    public float getHeight(){
-        return laser.getHeight();
-    }
+    @Override
+    public float getWidth() {return width;}
+
+    /**
+     * Gets laser height
+     * @return height
+     */
+    @Override
+    public float getHeight(){return height;}
+
+    /**
+     * Checks if laser made contact with object or left screen
+     * @return bool
+     */
+    @Override
+    public boolean isAlive() {return health > 0f;}
+
+    /**
+     * Gets laser health (1 or 0)
+     * @return health
+     */
+    @Override
+    public float getHealth() {return health;}
+
+    /**
+     * Apply damage to laser if contact
+     * @param damage subtracted from health
+     * @return 0 or 1
+     */
+    @Override
+    public float takeDamage(float damage) {return health -= damage;}
+
+    /**
+     * Add health to laser
+     * @param repairAmount amount of health added
+     * @return laser repaired health
+     */
+    @Override
+    public float addHealth(float repairAmount) {return health += repairAmount;}
 
     /**
      * Getter
      * @return x
      */
+    @Override
     public float getX() {return x;}
 
     /**
@@ -80,6 +111,7 @@ public class Laser {
      * Getter
      * @return y
      */
+    @Override
     public float getY() {return y;}
 
     /**

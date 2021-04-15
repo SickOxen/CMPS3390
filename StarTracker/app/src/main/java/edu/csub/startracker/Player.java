@@ -13,15 +13,16 @@ import java.util.Iterator;
 /**
  * Class that controls instance of player spaceship
  */
-public class Player {
+public class Player implements GameObject {
 
-    private float x, y, prevX, prevY;
+    private float x, y, prevX, prevY, health = 100f;
     private final Bitmap playerImg, playerLeft, playerRight;
     private Bitmap curImage;
     private Paint paint = new Paint();
     private final float dpi;
     private int frameTicks = 0, shotTicks = 0;
     private final Resources res;
+    private final int width, height;
     ArrayList<Laser> lasers = new ArrayList<>();
 
     /**
@@ -34,6 +35,8 @@ public class Player {
         playerLeft = BitmapFactory.decodeResource(res, R.mipmap.player_left);
         playerRight = BitmapFactory.decodeResource(res, R.mipmap.player_right);
         curImage = playerImg;
+        width = curImage.getWidth();
+        height = curImage.getHeight();
 
         DisplayMetrics dm = res.getDisplayMetrics();
         dpi = dm.densityDpi;
@@ -42,17 +45,25 @@ public class Player {
     }
 
     /**
-     * Continuously updates player ship and lasers
-     * and determines which asset to display
-     * @param touchX position of players finger on screen x
-     * @param touchY position of players finger on screen y
+     * Method specifically used for updating users touch-point
+     * @param touchX x axis variable
+     * @param touchY y axis variable
      */
-    public void update(int touchX, int touchY){
-
+    public void updateTouch(int touchX, int touchY){
         if(touchX > 0 && touchY > 0){
             this.x = touchX - (playerImg.getWidth() / 2f);
             this.y = touchY - (playerImg.getHeight() * 2f);
         }
+    }
+
+    /**
+     * Continuously updates player ship and lasers and determines which asset to display
+     */
+    @Override
+    public void update(){
+
+        if(health <= 0)
+            return;
 
         if(Math.abs(x - prevX) < 0.04 * dpi){
             frameTicks++;
@@ -82,10 +93,9 @@ public class Player {
             shotTicks = 0;
         }
 
-
         for(Iterator<Laser> iterator = lasers.iterator(); iterator.hasNext();){
             Laser laser = iterator.next();
-            if(!laser.isOnScreen())
+            if(!laser.isOnScreen() || !laser.isAlive())
                 iterator.remove();
         }
 
@@ -95,13 +105,80 @@ public class Player {
     }
 
     /**
-     * Continuously player assets to the screen
+     * Continuously displays player assets to the screen
      * @param canvas android activity of game
      */
     public void draw(Canvas canvas){
+
+        if(health <= 0)
+            return;
+
         canvas.drawBitmap(curImage, this.x, this.y, this.paint);
-        for(Laser laser : lasers) {
+        for(Laser laser : lasers)
             laser.draw(canvas);
-        }
     }
+
+    /**
+     * Getter
+     * @return x
+     */
+    @Override
+    public float getX() {return x;}
+
+    /**
+     * Getter
+     * @return y
+     */
+    @Override
+    public float getY() {return y;}
+
+    /**
+     * Getter
+     * @return width
+     */
+    @Override
+    public float getWidth() {return width;}
+
+    /**
+     * Getter
+     * @return height
+     */
+    @Override
+    public float getHeight() {return height;}
+
+    /**
+     * Check if player still has health
+     * @return bool to see if player is still alive
+     */
+    @Override
+    public boolean isAlive() {return health > 0f;}
+
+    /**
+     * Getter
+     * @return players remaining health
+     */
+    @Override
+    public float getHealth() {return health;}
+
+    /**
+     * Applies damage taken
+     * @param damage amount of damage from enemy
+     * @return health - damage
+     */
+    @Override
+    public float takeDamage(float damage) {return health -= damage;}
+
+    /**
+     * Applies health restored
+     * @param repairAmount amount of health re-applied
+     * @return health + restoration
+     */
+    @Override
+    public float addHealth(float repairAmount) {return health += repairAmount;}
+
+    /**
+     * Getter function
+     * @return all live lasers
+     */
+    public ArrayList<Laser> getLasers(){return lasers;}
 }

@@ -84,7 +84,7 @@ public class Player implements GameObject {
         prevY = y;
         shotTicks++;
 
-        if(shotTicks >= 10){
+        if(shotTicks >= 14){
             Laser tmp = new Laser(this.res);
             tmp.setX(x + (playerImg.getWidth() / 2f) - tmp.getMidX());
             tmp.setY(y - (tmp.getHeight() / 2f));

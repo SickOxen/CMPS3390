@@ -13,7 +13,7 @@ import java.util.Random;
  */
 public class Enemy02 implements GameObject{
 
-    private float x, y, ySpeed, health = 100;
+    private float x, y, ySpeed, health = 50;
     private Bitmap curImage;
     private final Bitmap enemy, enemy_fast;
     private final int screenWidth, screenHeight, width, height, dpi;
@@ -37,7 +37,7 @@ public class Enemy02 implements GameObject{
         height = curImage.getHeight();
         this.x = x;
         this.y = y;
-        ySpeed = 0.03f * dpi;
+        ySpeed = 0.02f * dpi;
         launchTick = new Random().nextInt(120-30) + 30;
     }
 

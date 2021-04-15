@@ -49,6 +49,7 @@ public class Enemy01 implements GameObject {
         float xOff = (float) (0.02f * screenWidth * Math.sin(y / (0.05f * screenHeight)));
         x += xOff;
         curImage = xOff > 0f ? enemy_left : enemy_right;
+
         if(Math.abs(xOff) < 2.5)
             curImage = enemy;
 

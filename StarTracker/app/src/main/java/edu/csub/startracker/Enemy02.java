@@ -37,7 +37,7 @@ public class Enemy02 implements GameObject{
         height = curImage.getHeight();
         this.x = x;
         this.y = y;
-        ySpeed = 0.02f * dpi;
+        ySpeed = 0.025f * dpi;
         launchTick = new Random().nextInt(120-30) + 30;
     }
 

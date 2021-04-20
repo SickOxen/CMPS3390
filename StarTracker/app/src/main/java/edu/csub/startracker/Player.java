@@ -1,10 +1,12 @@
 package edu.csub.startracker;
 
+import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Paint;
+import android.media.MediaPlayer;
 import android.util.DisplayMetrics;
 
 import java.util.ArrayList;
@@ -24,12 +26,13 @@ public class Player implements GameObject {
     private final Resources res;
     private final int width, height;
     ArrayList<Laser> lasers = new ArrayList<>();
+    //private final MediaPlayer laserSound;
 
     /**
      * Constructor that instantiates needed ship attributes
      * @param res android resources
      */
-    public Player(Resources res){
+    public Player(Resources res, Context context){
         this.res = res;
         playerImg = BitmapFactory.decodeResource(res, R.mipmap.player);
         playerLeft = BitmapFactory.decodeResource(res, R.mipmap.player_left);
@@ -42,6 +45,9 @@ public class Player implements GameObject {
         dpi = dm.densityDpi;
         x = (dm.widthPixels / 2f) - (playerImg.getHeight() / 2f);
         y = (dm.heightPixels * 0.75f);
+
+       // laserSound = MediaPlayer.create(context, R.raw.laser);
+       // laserSound.setVolume(0.5f, 0.5f);
     }
 
     /**
@@ -85,6 +91,7 @@ public class Player implements GameObject {
         shotTicks++;
 
         if(shotTicks >= 14){
+           // laserSound.start();
             Laser tmp = new Laser(this.res);
             tmp.setX(x + (playerImg.getWidth() / 2f) - tmp.getMidX());
             tmp.setY(y - (tmp.getHeight() / 2f));

@@ -1,9 +1,11 @@
 package edu.csub.startracker;
 
+import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.media.MediaPlayer;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -21,18 +23,20 @@ public class EnemySpawner {
     int frameTick = 0, waveTick = 0, spawnTick;
     int enemy01Spawned = 0, enemy02Spawned = 0;
     private Paint paint = new Paint();
+    //private final MediaPlayer dead;
 
     /**
      * Default Constructor
      * @param res android resources
      */
-    public EnemySpawner(Resources res){
+    public EnemySpawner(Resources res, Context context){
         enemies = new ArrayList<>();
         screenWidth = res.getDisplayMetrics().widthPixels;
         this.res = res;
         spawnTick = new Random().nextInt(120-60) + 60;
         paint.setColor(Color.WHITE);
         paint.setTextSize(screenWidth * 0.05f);
+        //dead = MediaPlayer.create(context, R.raw.bang);
     }
 
     /**
@@ -44,7 +48,7 @@ public class EnemySpawner {
         if(frameTick >= spawnTick){
             frameTick = 0;
             spawnTick = new Random().nextInt(120-60) + 60;
-            x = new Random().nextInt((int)(screenWidth * 0.7f - screenWidth * 0.05f)) + screenWidth * 0.1f;
+            x = new Random().nextInt((int)(screenWidth * 0.6f - screenWidth * 0.1f)) + screenWidth * 0.1f;
             int tmp = (int)Math.round(Math.random());
 
             if(tmp == 0 && enemy01Spawned < wave) {
@@ -74,8 +78,8 @@ public class EnemySpawner {
             GameObject go = iterator.next();
             go.update();
             if(!go.isAlive())
+                //dead.start();
                 iterator.remove();
-
         }
     }
 

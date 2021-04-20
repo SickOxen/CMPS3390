@@ -5,6 +5,7 @@ import android.content.res.Resources;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.media.MediaPlayer;
 import android.view.MotionEvent;
 import android.view.SurfaceView;
 
@@ -27,6 +28,7 @@ public class GameView extends SurfaceView implements Runnable {
     private ArrayList<GameObject> enemies;
     private GameActivity gameActivity;
     private Paint textPaint = new Paint();
+    //private final MediaPlayer boom;
 
     /**
      * Constructor that sets the background and player instances
@@ -44,11 +46,12 @@ public class GameView extends SurfaceView implements Runnable {
         background1 = new Background(screenX, screenY, res);
         background2 = new Background(screenX, screenY, res);
         background2.setY(screenY);
-        player = new Player(res);
-        spawner = new EnemySpawner(res);
+        player = new Player(res, context);
+        spawner = new EnemySpawner(res, context);
         lasers = player.getLasers();
         enemies = spawner.getEnemies();
         gameActivity = context;
+        //boom = MediaPlayer.create(context, R.raw.boom);
     }
 
     /**
@@ -104,6 +107,7 @@ public class GameView extends SurfaceView implements Runnable {
         for(Laser laser : lasers)
             for(GameObject go : enemies)
                 if(checkCollision(laser, go)) {
+                    // boom.start();
                     laser.takeDamage(100);
                     go.takeDamage(25);
                 }

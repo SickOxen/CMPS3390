@@ -10,8 +10,6 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import org.w3c.dom.Text;
-
 /**
  * Main Driver for StarTracker: Program starts here
  * @author Richard Guiles
@@ -33,10 +31,13 @@ public class MainActivity extends AppCompatActivity {
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
     }
 
+    /**
+     * Refreshes HighScores on every playthrough
+     */
     @Override
     protected void onResume(){
         super.onResume();
-        getTopScores(10);
+        getTopScores();
         TextView tvHighScore = findViewById(R.id.tvHighScore);
         EditText etPlayerName = findViewById(R.id.etPlayerName);
         etPlayerName.setText(highScore.getPlayerName());
@@ -45,7 +46,10 @@ public class MainActivity extends AppCompatActivity {
             highScore.postHighScore();
     }
 
-    private void getTopScores(int howMany){
+    /**
+     * Gets top 10 high scores
+     */
+    private void getTopScores(){
         ListView highScores = findViewById(R.id.lvTopScores);
         highScore.getHighScores(10, highScores, this);
     }

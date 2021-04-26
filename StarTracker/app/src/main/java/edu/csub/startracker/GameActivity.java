@@ -33,6 +33,9 @@ public class GameActivity extends AppCompatActivity {
         setContentView(gameView);
     }
 
+    /**
+     * Resets game when player has died
+     */
     public void gameOver(){
         Handler handler = new Handler(Looper.getMainLooper());
         handler.postDelayed(new Runnable() {

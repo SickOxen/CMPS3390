@@ -23,6 +23,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * Class that controls the high scores of all players on server
+ */
 public final class HighScore {
 
     private static final HighScore INSTANCE = new HighScore();
@@ -31,30 +34,66 @@ public final class HighScore {
     private String name = "Player";
     private FirebaseFirestore db;
 
+    /**
+     * Default Constructor
+     */
     private HighScore(){
         db = FirebaseFirestore.getInstance();
     }
 
+    /**
+     * Getter
+     * @return Current Games High Score
+     */
     public static HighScore getInstance(){
         return INSTANCE;
     }
 
+    /**
+     * Measures player score and sets if record is broken
+     * @param score player score
+     */
     public void addScore(int score){
         curScore += score;
         if(curScore > highScore)
             highScore = curScore;
     }
 
+    /**
+     * Getter
+     * @return Current Score
+     */
     public int getCurScore() {return curScore;}
 
+    /**
+     * Getter
+     * @return High Score
+     */
     public int getHighScore() {return highScore;}
 
+    /**
+     * Sets current score to zero
+     */
     public void resetCurScore() {curScore = 0;}
 
+    /**
+     * Setter
+     * @param playerName Name user enters on home screen
+     */
     public void setPlayerName(String playerName) {name = playerName;}
 
+    /**
+     * Getter
+     * @return Player Name
+     */
     public String getPlayerName() {return name;}
 
+    /**
+     * Retrieves ArrayList of all-time Highest Scores from Firebase db
+     * @param howMany pre-decided number of scores to grab
+     * @param highScores list of scores
+     * @param context android context
+     */
     public void getHighScores(int howMany, ListView highScores, Context context){
         ArrayList<String> topScores = new ArrayList<>();
 
@@ -80,6 +119,9 @@ public final class HighScore {
                 });
     }
 
+    /**
+     * Displays High Scores on Home Screen
+     */
     public void postHighScore(){
         Map<String, Integer> hs = new HashMap<>();
         hs.put("score", highScore);

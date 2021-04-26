@@ -96,6 +96,9 @@ public class GameView extends SurfaceView implements Runnable {
         checkEnemyOffScreen();
     }
 
+    /**
+     * Call Game Over if enemy ship makes it to bottom of screen
+     */
     private void checkEnemyOffScreen() {
         for(GameObject go : enemies)
             if(go.getY() > screenHeight){

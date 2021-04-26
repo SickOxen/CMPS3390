@@ -47,7 +47,7 @@ public class EnemySpawner {
 
         if(frameTick >= spawnTick){
             frameTick = 0;
-            spawnTick = new Random().nextInt(120-60) + 60;
+            spawnTick = new Random().nextInt(120-60);
             x = new Random().nextInt((int)(screenWidth * 0.6f - screenWidth * 0.1f)) + screenWidth * 0.1f;
             int tmp = (int)Math.round(Math.random());
 
@@ -66,7 +66,7 @@ public class EnemySpawner {
 
         if(enemy01Spawned >= wave && enemy02Spawned >= wave){
             waveTick++;
-            if(waveTick >= 240) {
+            if(waveTick >= 160) {
                 wave++;
                 waveTick = 0;
                 enemy01Spawned = 0;

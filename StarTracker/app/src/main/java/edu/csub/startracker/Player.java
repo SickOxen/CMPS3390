@@ -22,11 +22,11 @@ public class Player implements GameObject {
     private Bitmap curImage;
     private Paint paint = new Paint();
     private final float dpi;
-    private int frameTicks = 0, shotTicks = 0;
+    private int frameTicks = 0, shotTicks = 0, laserTicks = 0;
     private final Resources res;
     private final int width, height;
     ArrayList<Laser> lasers = new ArrayList<>();
-    //private final MediaPlayer laserSound;
+    private final MediaPlayer laserSound;
 
     /**
      * Constructor that instantiates needed ship attributes
@@ -46,8 +46,8 @@ public class Player implements GameObject {
         x = (dm.widthPixels / 2f) - (playerImg.getHeight() / 2f);
         y = (dm.heightPixels * 0.75f);
 
-       // laserSound = MediaPlayer.create(context, R.raw.laser);
-       // laserSound.setVolume(0.5f, 0.5f);
+        laserSound = MediaPlayer.create(context, R.raw.laser);
+        laserSound.setVolume(0.5f, 0.5f);
     }
 
     /**
@@ -89,9 +89,14 @@ public class Player implements GameObject {
         prevX = x;
         prevY = y;
         shotTicks++;
+        laserTicks++;
+
+        if(laserTicks >= 42) {
+            laserSound.start();
+            laserTicks = 0;
+        }
 
         if(shotTicks >= 14){
-           // laserSound.start();
             Laser tmp = new Laser(this.res);
             tmp.setX(x + (playerImg.getWidth() / 2f) - tmp.getMidX());
             tmp.setY(y - (tmp.getHeight() / 2f));

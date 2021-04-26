@@ -23,7 +23,7 @@ public class EnemySpawner {
     int frameTick = 0, waveTick = 0, spawnTick;
     int enemy01Spawned = 0, enemy02Spawned = 0;
     private Paint paint = new Paint();
-    //private final MediaPlayer dead;
+    private final MediaPlayer dead;
 
     /**
      * Default Constructor
@@ -36,7 +36,7 @@ public class EnemySpawner {
         spawnTick = new Random().nextInt(120-60) + 60;
         paint.setColor(Color.WHITE);
         paint.setTextSize(screenWidth * 0.05f);
-        //dead = MediaPlayer.create(context, R.raw.bang);
+        dead = MediaPlayer.create(context, R.raw.bang);
     }
 
     /**
@@ -77,9 +77,10 @@ public class EnemySpawner {
         for(Iterator<GameObject> iterator = enemies.iterator(); iterator.hasNext();){
             GameObject go = iterator.next();
             go.update();
-            if(!go.isAlive())
-                //dead.start();
+            if(!go.isAlive()) {
+                dead.start();
                 iterator.remove();
+            }
         }
     }
 

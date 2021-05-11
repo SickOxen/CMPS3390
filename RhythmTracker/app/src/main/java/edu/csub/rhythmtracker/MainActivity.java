@@ -26,10 +26,10 @@ public class MainActivity extends AppCompatActivity {
     }
 
     /**
-     * Launches Level 01 Activity when play button is clicked
+     * Launches the Game Activity when play button is clicked
      * @param view Game Canvas
      */
     public void onPlayButtonClicked(View view) {
-        startActivity(new Intent(MainActivity.this, Level1.class));
+        startActivity(new Intent(MainActivity.this, GameActivity.class));
     }
 }

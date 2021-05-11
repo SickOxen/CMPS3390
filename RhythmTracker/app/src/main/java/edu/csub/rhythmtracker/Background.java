@@ -10,8 +10,8 @@ import android.graphics.Paint;
  */
 public class Background {
 
-    private Bitmap background;
-    private int screenX, screenY;
+    private Bitmap background1, background2;
+    private int screenX, screenY, level;
     private Paint paint = new Paint();
     private float dpi;
 
@@ -24,11 +24,14 @@ public class Background {
      * @param screenY y position of user screen
      * @param res Android Folder containing assets
      */
-    public Background(int screenX, int screenY, Resources res){
+    public Background(int screenX, int screenY, int level, Resources res){
         this.screenX = screenX;
         this.screenY = screenY;
-        this.background = BitmapFactory.decodeResource(res, R.mipmap.bg1norm);
-        this.background = Bitmap.createScaledBitmap(this.background, screenX, screenY, false);
+        this.level = level;
+        this.background1 = BitmapFactory.decodeResource(res, R.mipmap.bg1norm);
+        this.background1 = Bitmap.createScaledBitmap(this.background1, screenX, screenY, false);
+        this.background2 = BitmapFactory.decodeResource(res, R.mipmap.bg2norm);
+        this.background2 = Bitmap.createScaledBitmap(this.background2, screenX, screenY, false);
         this.dpi = res.getDisplayMetrics().densityDpi;
     }
 
@@ -60,7 +63,7 @@ public class Background {
      * Updates the background by scrolling the image downwards
      */
     public void update() {
-        this.y += 0.006f * dpi;
+        this.y += 0.010f * dpi;
         if(this.y > screenY){
             this.y = -screenY;
         }
@@ -71,6 +74,9 @@ public class Background {
      * @param canvas android class that holds 'draw' calls
      */
     public void draw(Canvas canvas) {
-        canvas.drawBitmap(this.background, this.x, this.y, paint);
+        if(level == 1)
+            canvas.drawBitmap(this.background1, this.x, this.y, paint);
+        if(level == 2)
+            canvas.drawBitmap(this.background2, this.x, this.y, paint);
     }
 }

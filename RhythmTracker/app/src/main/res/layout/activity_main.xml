@@ -11,27 +11,54 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:scaleType="centerCrop"
-        app:srcCompat="@mipmap/bg1norm"/>
+        app:srcCompat="@mipmap/homebg"/>
+
+    <TextView
+        android:id="@+id/title1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="RHYTHM"
+        android:textColor="@color/teal_200"
+        android:textSize="60dp"
+        android:textStyle="bold"
+        android:layout_marginTop="100dp"
+        app:layout_constraintBottom_toTopOf="@+id/title2"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/background1" />
+
+    <TextView
+        android:id="@+id/title2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="TRACKER"
+        android:textColor="@color/teal_200"
+        android:textSize="60dp"
+        android:textStyle="bold"
+        app:layout_constraintTop_toTopOf="@+id/title1"
+        app:layout_constraintBottom_toTopOf="@+id/playImage"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
 
     <ImageView
         android:id="@+id/playImage"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="147dp"
+        android:layout_height="33dp"
+        app:layout_constraintBottom_toTopOf="@id/playButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/playButton"
         app:srcCompat="@mipmap/play_button" />
 
     <ImageButton
         android:id="@+id/playButton"
-        android:onClick="onPlayButtonClicked"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:background="#00F44336"
+        android:onClick="onPlayButtonClicked"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/playImage"
+        app:layout_constraintTop_toBottomOf="@id/title2"
         app:srcCompat="@mipmap/button1" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

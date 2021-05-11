@@ -5,8 +5,6 @@ import android.graphics.Canvas;
 import android.view.MotionEvent;
 import android.view.SurfaceView;
 
-import androidx.constraintlayout.widget.ConstraintSet;
-
 /**
  * Class that controls the activity which runs the actual game
  */
@@ -14,11 +12,10 @@ public class GameView extends SurfaceView implements Runnable {
 
     private Thread thread;
     private boolean isPlaying = true;
-    private final Background background1;
-    private final Background background2;
+    private final Background background1, background2;
 
     private int touchX, touchY;
-    private final Buttons button1, button2, button3, button4;
+    private final Buttons buttons;
 
     /**
      * Constructor that creates permanent game assets
@@ -26,18 +23,15 @@ public class GameView extends SurfaceView implements Runnable {
      * @param screenX width of user screen
      * @param screenY height of user screen
      */
-    public GameView(Context context, int screenX, int screenY) {
+    public GameView(Context context, int screenX, int screenY, int level) {
         super(context);
         Resources res = getResources();
 
-        background1 = new Background(screenX, screenY, res);
-        background2 = new Background(screenX, screenY, res);
+        background1 = new Background(screenX, screenY, level, res);
+        background2 = new Background(screenX, screenY, level, res);
         background2.setY(screenY);
 
-        button1 = new Buttons(res);
-        button2 = new Buttons(res);
-        button3 = new Buttons(res);
-        button4 = new Buttons(res);
+        buttons = new Buttons(res);
     }
 
     /**
@@ -58,6 +52,11 @@ public class GameView extends SurfaceView implements Runnable {
     private void update() {
         background1.update();
         background2.update();
+
+        //onTouchEvent()
+        // check buttons pressed
+        buttons.checkClicked(touchX, touchY);
+
     }
 
     /**
@@ -68,22 +67,8 @@ public class GameView extends SurfaceView implements Runnable {
             Canvas canvas = getHolder().lockCanvas();
             background1.draw(canvas);
             background2.draw(canvas);
-            button1.draw(canvas);
-            button2.draw(canvas);
-            button3.draw(canvas);
-            button4.draw(canvas);
+            buttons.draw(canvas);
             getHolder().unlockCanvasAndPost(canvas);
-        }
-    }
-
-    /**
-     * Sleeps all threads at rate of 60 fps
-     */
-    private void sleep() {
-        try {
-            Thread.sleep(17);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
         }
     }
 
@@ -118,5 +103,16 @@ public class GameView extends SurfaceView implements Runnable {
         isPlaying = true;
         thread = new Thread(this);
         thread.start();
+    }
+
+    /**
+     * Sleeps all threads at rate of 60 fps
+     */
+    private void sleep() {
+        try {
+            Thread.sleep(17);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 }

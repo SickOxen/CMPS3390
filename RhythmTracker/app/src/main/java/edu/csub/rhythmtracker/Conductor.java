@@ -20,7 +20,7 @@ public class Conductor {
     }
 
     /**
-     * Updates necessary values between levels
+     * Updates necessary beat values between levels
      */
     public void update(){
 

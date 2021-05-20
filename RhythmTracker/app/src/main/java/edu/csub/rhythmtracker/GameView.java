@@ -21,7 +21,7 @@ public class GameView extends SurfaceView implements Runnable {
     private final Background background1, background2;
     private final Buttons buttons;
     private final NoteSpawner notes;
-    private final MediaPlayer click, tutorial;
+    private final MediaPlayer click, tutorialSong, level1Song;
 
     /**
      * Constructor that creates permanent game assets
@@ -38,7 +38,8 @@ public class GameView extends SurfaceView implements Runnable {
         background2.setY(screenY);
         buttons = new Buttons(res);
         notes = new NoteSpawner(res);
-        tutorial = MediaPlayer.create(context, R.raw.tutorial);
+        tutorialSong = MediaPlayer.create(context, R.raw.tutorial);
+        level1Song = MediaPlayer.create(context, R.raw.level1);
         click = MediaPlayer.create(context, R.raw.hit);
         click.setVolume(0.5f, 0.5f);
     }
@@ -62,7 +63,7 @@ public class GameView extends SurfaceView implements Runnable {
         background1.update();
         background2.update();
         notes.update();
-        tutorial.start();
+        level1Song.start();
 
         if(buttons.checkClicked(touchX, touchY)){
             if(!click.isPlaying()){

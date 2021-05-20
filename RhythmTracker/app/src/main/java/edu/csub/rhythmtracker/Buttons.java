@@ -17,7 +17,7 @@ public class Buttons {
     private final Bitmap b1Click, b2Click, b3Click, b4Click;
 
     /**
-     * Constructor that creates the 4 required buttons
+     * Constructor that creates the 4 buttons (standard & clicked)
      * @param res image assets
      */
     public Buttons(Resources res) {

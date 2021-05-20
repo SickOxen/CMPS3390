@@ -12,11 +12,8 @@ public class Background {
 
     private Bitmap background1, background2;
     private int screenX, screenY, level;
+    private float x = 0f, y = 0f, dpi;
     private Paint paint = new Paint();
-    private float dpi;
-
-    private float x = 0f;
-    private float y = 0f;
 
     /**
      * Constructor that creates Background Activity

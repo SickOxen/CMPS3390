@@ -64,10 +64,12 @@ public class GameView extends SurfaceView implements Runnable {
         notes.update();
         tutorial.start();
 
-        // onTouchEvent()
-        // check buttons pressed
         if(buttons.checkClicked(touchX, touchY)){
-            click.start();
+            if(!click.isPlaying()){
+                click.start();
+                touchX = 0;
+                touchY = 0;
+            }
         }
     }
 

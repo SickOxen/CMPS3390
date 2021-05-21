@@ -50,7 +50,7 @@ public class Enemy02 implements GameObject{
 
         if(frameTick == launchTick / 3){
             curImage = enemy_fast;
-            ySpeed *= 4f;
+            ySpeed *= 2f;
         }
 
         y += ySpeed;

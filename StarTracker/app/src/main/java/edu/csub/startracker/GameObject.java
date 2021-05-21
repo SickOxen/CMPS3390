@@ -16,5 +16,4 @@ public interface GameObject {
     float getHealth();
     float takeDamage(float damage);
     float addHealth(float repairAmount);
-
 }

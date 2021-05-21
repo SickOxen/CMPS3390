@@ -38,7 +38,7 @@ public class Enemy01 implements GameObject {
         screenHeight = res.getDisplayMetrics().heightPixels;
         screenWidth = res.getDisplayMetrics().widthPixels;
 
-        ySpeed = 0.03f * dpi;
+        ySpeed = 0.02f * dpi;
     }
 
     /**

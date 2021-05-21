@@ -3,6 +3,7 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Canvas;
+import android.graphics.drawable.Drawable;
 import android.media.MediaPlayer;
 import android.os.Build;
 import android.view.MotionEvent;
@@ -10,24 +11,28 @@ import android.view.SurfaceView;
 
 import androidx.annotation.RequiresApi;
 
+import java.util.Random;
+
 /**
  * Class that controls the activity which runs the actual game
  */
 public class GameView extends SurfaceView implements Runnable {
 
     private Thread thread;
-    private int touchX, touchY, eventAction;
+    private int eventAction;
+    private int touchX, touchY;
     private boolean isPlaying = true;
     private final Background background1, background2;
     private final Buttons buttons;
     private final NoteSpawner notes;
-    private final MediaPlayer click, tutorialSong, level1Song;
+    private final Conductor conductor;
 
     /**
      * Constructor that creates permanent game assets
      * @param context current state of the application
      * @param screenX width of user screen
      * @param screenY height of user screen
+     * @param level Current level
      */
     public GameView(GameActivity context, int screenX, int screenY, int level) {
         super(context);
@@ -36,19 +41,20 @@ public class GameView extends SurfaceView implements Runnable {
         background1 = new Background(screenX, screenY, level, res);
         background2 = new Background(screenX, screenY, level, res);
         background2.setY(screenY);
-        buttons = new Buttons(res);
-        notes = new NoteSpawner(res);
-        tutorialSong = MediaPlayer.create(context, R.raw.tutorial);
-        level1Song = MediaPlayer.create(context, R.raw.level1);
-        click = MediaPlayer.create(context, R.raw.hit);
-        click.setVolume(0.5f, 0.5f);
+
+        conductor = new Conductor(context, res);
+        buttons = new Buttons(context, res);
+        notes = new NoteSpawner(context, res);
     }
 
     /**
-     * Endlessly call necessary functions while game is running
+     * Call necessary functions while game is running
      */
     @Override
     public void run() {
+
+        conductor.startSong(1);
+
         while(isPlaying){
             update();
             draw();
@@ -63,15 +69,9 @@ public class GameView extends SurfaceView implements Runnable {
         background1.update();
         background2.update();
         notes.update();
-        level1Song.start();
-
-        if(buttons.checkClicked(touchX, touchY)){
-            if(!click.isPlaying()){
-                click.start();
-                touchX = 0;
-                touchY = 0;
-            }
-        }
+        buttons.checkClicked(touchX, touchY);
+        touchX = 0;
+        touchY = 0;
     }
 
     /**
@@ -82,7 +82,7 @@ public class GameView extends SurfaceView implements Runnable {
             Canvas canvas = getHolder().lockCanvas();
             background1.draw(canvas);
             background2.draw(canvas);
-            buttons.draw(canvas);
+            buttons.draw(canvas, eventAction);
             notes.draw(canvas);
             getHolder().unlockCanvasAndPost(canvas);
         }

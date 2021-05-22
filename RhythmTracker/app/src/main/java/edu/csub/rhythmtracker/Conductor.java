@@ -13,14 +13,18 @@ public class Conductor {
     private final MediaPlayer tutorialSong, level1Song;
 
     /**
-     * Default Constructor
+     * Default Constructor - This is where the Tempo Math happens
      * @param res Resources
      */
     public Conductor(Context context, Resources res){
         this.dpi = res.getDisplayMetrics().densityDpi;
 
         this.bpm = 120;
-        this.secPerBeat = (60f/bpm) * 22.5f;
+        this.secPerBeat = (60f/bpm) * 21f;
+
+        // I couldn't figure out what functions to use to get this information
+        // songPosition = AudioSettings.dspTime (Exact start time of song)
+        // songOffset = songPosition - program start
 
         tutorialSong = MediaPlayer.create(context, R.raw.tutorial);
         level1Song = MediaPlayer.create(context, R.raw.level1);
@@ -38,7 +42,7 @@ public class Conductor {
     }
 
     /**
-     * Plays the correct dependent upon passed level
+     * Plays song dependent upon passed level
      * @param level Current Level
      */
     public void startSong(int level){

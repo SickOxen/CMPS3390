@@ -11,6 +11,7 @@ import android.view.SurfaceView;
 
 import androidx.annotation.RequiresApi;
 
+import java.util.ArrayList;
 import java.util.Random;
 
 /**
@@ -19,13 +20,16 @@ import java.util.Random;
 public class GameView extends SurfaceView implements Runnable {
 
     private Thread thread;
-    private int eventAction;
-    private int touchX, touchY;
+    private int  miss, eventAction, touchX, touchY;
     private boolean isPlaying = true;
+    private final float screenWidth, screenHeight;
     private final Background background1, background2;
     private final Buttons buttons;
-    private final NoteSpawner notes;
+    private int[] buttonPositions;
     private final Conductor conductor;
+    private final NoteSpawner noteSpawner;
+    private ArrayList <NoteSpawner> notes;
+    private GameActivity gameActivity;
 
     /**
      * Constructor that creates permanent game assets
@@ -37,6 +41,9 @@ public class GameView extends SurfaceView implements Runnable {
     public GameView(GameActivity context, int screenX, int screenY, int level) {
         super(context);
         Resources res = getResources();
+        screenWidth = res.getDisplayMetrics().widthPixels;
+        screenHeight = res.getDisplayMetrics().heightPixels;
+        gameActivity = context;
 
         background1 = new Background(screenX, screenY, level, res);
         background2 = new Background(screenX, screenY, level, res);
@@ -44,7 +51,9 @@ public class GameView extends SurfaceView implements Runnable {
 
         conductor = new Conductor(context, res);
         buttons = new Buttons(context, res);
-        notes = new NoteSpawner(context, res);
+        noteSpawner = new NoteSpawner(context, res);
+        notes = noteSpawner.getNotes();
+        buttonPositions = buttons.getButtonPositions();
     }
 
     /**
@@ -52,13 +61,11 @@ public class GameView extends SurfaceView implements Runnable {
      */
     @Override
     public void run() {
-
         conductor.startSong(1);
-
         while(isPlaying){
             update();
             draw();
-            sleep();
+            // sleep(); - Was messing around with not sleeping threads because of bpm
         }
     }
 
@@ -68,7 +75,7 @@ public class GameView extends SurfaceView implements Runnable {
     private void update() {
         background1.update();
         background2.update();
-        notes.update();
+        noteSpawner.update();
         buttons.checkClicked(touchX, touchY);
         touchX = 0;
         touchY = 0;
@@ -83,9 +90,34 @@ public class GameView extends SurfaceView implements Runnable {
             background1.draw(canvas);
             background2.draw(canvas);
             buttons.draw(canvas, eventAction);
-            notes.draw(canvas);
+            noteSpawner.draw(canvas);
             getHolder().unlockCanvasAndPost(canvas);
         }
+    }
+
+    /**
+     * Check for the overlap of a Note and a Button
+     * @param ns NoteSpawner Instance (one note)
+     * @param bs Button Instance
+     * @return T or F if overlap
+     */
+    private boolean checkNoteButtonCollision(NoteSpawner ns, Buttons bs){
+        return ns.getX() < bs.getX() + bs.getWidth() &&
+                ns.getX() + ns.getWidth() > bs.getX() &&
+                ns.getY() < bs.getY() + bs.getHeight() &&
+                ns.getY() + ns.getHeight() > bs.getY();
+    }
+
+    /**
+     * Game Over when too many notes go off screen
+     */
+    private void isNoteOffScreen(){
+        for (NoteSpawner ns : notes)
+            if(ns.getY() > screenHeight){
+                miss += 1;
+                if (miss == 4)
+                    gameActivity.gameOver();
+            }
     }
 
     /**

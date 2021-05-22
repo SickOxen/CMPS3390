@@ -6,7 +6,6 @@ import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.media.MediaPlayer;
-import android.util.DisplayMetrics;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -50,15 +49,18 @@ public class NoteSpawner {
 
     /**
      * Updates Note instances based on song
+     * @param
      */
     public void update(){
 
         y += conductor.getSecPerBeat();
-        if(y >= getScreenHeight())
+        if(y >= getScreenHeight()) {
+            note = randInt.nextInt(5);
             y = 0;
+        }
 
-        note = randInt.nextInt(5);
-        //notes.add(new note);
+        // I was trying to implement an array of notes here to be called in terms of bpm
+        // notes.add(new note);
 
         for(Iterator<NoteSpawner> iterator = notes.iterator(); iterator.hasNext();){
             NoteSpawner ns = iterator.next();
@@ -93,6 +95,12 @@ public class NoteSpawner {
      * @return T or F
      */
     public boolean isOffScreen(){return (y > getScreenHeight());}
+
+    /**
+     * Getter Function
+     * @return Array of Notes
+     */
+    public ArrayList<NoteSpawner> getNotes(){return notes;}
 
     /**
      * Gets exact height of user screen

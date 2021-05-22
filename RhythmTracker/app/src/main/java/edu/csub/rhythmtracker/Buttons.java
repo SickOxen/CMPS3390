@@ -6,9 +6,6 @@ import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.media.MediaPlayer;
-import android.view.MotionEvent;
-
-import androidx.constraintlayout.widget.ConstraintSet;
 
 /**
  * Class that controls button usage and reactivity
@@ -16,6 +13,7 @@ import androidx.constraintlayout.widget.ConstraintSet;
 public class Buttons {
 
     private int button = 0;
+    private int buttonPositions[] = {0, 85, 175, 265};
     private Paint paint = new Paint();
     private int b1x = 0, b2x = 85, b3x = 175, b4x = 265, y = 470;
     private final MediaPlayer click;
@@ -102,4 +100,39 @@ public class Buttons {
 
         return bool;
     }
+
+
+    /**
+     * Array that contains ALL button positioning
+     * @return Button x-values
+     */
+    public int[] getButtonPositions() {
+        return buttonPositions;
+    }
+
+    /**
+     * Return x-value based on which button is being overlapped
+     * @return x-position of button
+     */
+    public float getX() {
+        return this.b1x;
+    }
+
+    /**
+     * Return y position of buttons (all the same)
+     * @return y-position of button
+     */
+    public float getY() {return this.y;}
+
+    /**
+     * Return width of button
+     * @return Width in pixels
+     */
+    public float getWidth() {return 90;}
+
+    /**
+     * Return height of button
+     * @return Height in pixels
+     */
+    public float getHeight() {return 90;}
 }
